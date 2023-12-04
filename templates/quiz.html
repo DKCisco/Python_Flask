@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ quiz.name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .question {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ quiz.name }}</h1>
+        <form action="/submit_quiz/{{ quiz.id }}" method="post">
+            {% for question in quiz.questions %}
+                <div class="question">
+                    <h3>Question {{ loop.index }}: {{ question.text }}</h3>
+                    <div>
+                        <!-- All options as checkboxes -->
+                        {% for option in question.options %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="question{{ loop.index0 }}" id="question{{ loop.index0 }}option{{ loop.index }}" value="{{ option }}">
+                                <label class="form-check-label" for="question{{ loop.index0 }}option{{ loop.index }}">
+                                    {{ option }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary mt-3">Submit Quiz</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.
